@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Manifesto of the Outlier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        /* Stacking Effect Logic */
+        .stack-container {
+            perspective: 1000px;
+        }
+        
+        .manifesto-card {
+            position: sticky;
+            top: 10vh;
+            min-height: 80vh;
+            display: flex;
+            flex-col: column;
+            justify-content: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            background-color: #000;
+            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        }
+
+        .grainy-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.05;
+            background-image: url('https://www.transparenttextures.com/patterns/p6-static.png');
+        }
+
+        .silicon-blue { color: #2563eb; }
+        .pirate-red { color: #dc2626; }
+
+        /* Animation for text reveal */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .manifesto-card {
+                top: 5vh;
+                min-height: 90vh;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-900">
+    <div class="grainy-overlay"></div>
+
+    <!-- Minimal Title Section -->
+    <header class="h-screen flex items-center justify-center text-center px-6">
+        <h1 class="text-6xl md:text-9xl font-black uppercase italic tracking-tighter leading-none">
+            The <br>Manifesto <br>of the <br>Outlier
+        </h1>
+    </header>
+
+    <main class="stack-container pb-[20vh]">
+        
+        <!-- I -->
+        <section class="manifesto-card border-white/10" id="section-1">
+            <div class="max-w-4xl mx-auto w-full">
+                <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">I.</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Intent of the Object</h2>
+                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
+                    We do not build tools; we build extensions of the human spirit. Every line of code and every pixel is a choice. We believe that a product should not just function, but possess a <span class="text-white font-bold">"bicycle-like" efficiency</span> for the mind.
+                </p>
+            </div>
+        </section>
+
+        <!-- II -->
+        <section class="manifesto-card border-white/10" id="section-2">
+            <div class="max-w-4xl mx-auto w-full">
+                <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">II.</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Cultivation of Taste</h2>
+                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
+                    We refuse the mediocre. We commit to exposing ourselves to the best things humans have done—across art, science, and history—and bringing that excellence into our craft. 
+                    <span class="block mt-6 text-blue-400">Taste is the only non-fungible resource.</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- III -->
+        <section class="manifesto-card border-white/10" id="section-3">
+            <div class="max-w-4xl mx-auto w-full">
+                <span class="text-6xl md:text-8xl font-black italic pirate-red mb-8 block">III.</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Courage to be a Pirate</h2>
+                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
+                    It is better to be a pirate than to join the navy. We value the "garage" spirit of agility and rebellion over the stagnation of the system. We understand that <span class="italic">"good artists copy, but great artists steal."</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- IV -->
+        <section class="manifesto-card border-white/10" id="section-4">
+            <div class="max-w-4xl mx-auto w-full">
+                <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">IV.</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Science of Poking Life</h2>
+                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
+                    Everything around us was made up by people no smarter than we are. We do not just inhabit the world; <span class="text-white font-bold uppercase tracking-widest">we poke it.</span> We push against the boundaries of the "possible" until they give way to our vision.
+                </p>
+            </div>
+        </section>
+
+        <!-- V -->
+        <section class="manifesto-card border-white/10" id="section-5">
+            <div class="max-w-4xl mx-auto w-full">
+                <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">V.</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Discipline of the Visionary</h2>
+                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
+                    We embrace mistakes as the price of ambition and the fuel for enrichment. We harbor no regrets for things left undone, for we act with relentless intent.
+                </p>
+            </div>
+        </section>
+
+        <!-- Final Signature -->
+        <section class="manifesto-card border-white/10 h-screen" id="final">
+            <div class="text-center">
+                <h3 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter reveal-text">
+                    Stay hungry.<br>
+                    <span class="silicon-blue">Stay foolish.</span>
+                </h3>
+                <p class="mt-20 text-xs font-bold uppercase tracking-[0.5em] opacity-30">The Product Space • Coimbatore</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Reveal text on scroll
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const texts = entry.target.querySelectorAll('.reveal-text');
+                    texts.forEach((text, index) => {
+                        setTimeout(() => {
+                            text.classList.add('visible');
+                        }, index * 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.manifesto-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add a slight parallax/scale effect on scroll for stacking
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.manifesto-card');
+            cards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top <= 0 && rect.bottom > 0) {
+                    // Card is currently active/sticky
+                    const progress = Math.abs(rect.top) / rect.height;
+                    // Optional: add a slight darkening or scaling to the "underneath" cards
+                }
+            });
+        });
+    </script>
+</body>
+</html>
