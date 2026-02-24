@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000;
+            background-color: #0d0d0d;
             color: #fff;
             overflow-x: hidden;
         }
@@ -21,24 +21,39 @@
         
         .manifesto-card {
             position: sticky;
-            top: 10vh;
-            min-height: 80vh;
+            top: 0;
+            min-height: 100vh;
             display: flex;
-            flex-col: column;
+            flex-direction: column;
             justify-content: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.2);
-            background-color: #000;
-            transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+            padding: 4rem 2rem;
+            background-color: #0d0d0d;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
         }
 
         .grainy-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
-            z-index: 50;
-            opacity: 0.05;
+            z-index: 100;
+            opacity: 0.04;
             background-image: url('https://www.transparenttextures.com/patterns/p6-static.png');
+        }
+
+        /* Subtle background text inspired by the poster */
+        .bg-manifesto-text {
+            position: fixed;
+            top: 10%;
+            left: 5%;
+            width: 90%;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            font-weight: 700;
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+            text-transform: uppercase;
         }
 
         .silicon-blue { color: #2563eb; }
@@ -47,8 +62,8 @@
         /* Animation for text reveal */
         .reveal-text {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal-text.visible {
@@ -56,100 +71,163 @@
             transform: translateY(0);
         }
 
+        /* Auto-Scroll Toggle UI */
+        #autoScrollToggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 200;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        #autoScrollToggle.active {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .eyemask-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .manifesto-card {
-                top: 5vh;
-                min-height: 90vh;
+                padding: 2rem 1rem;
+            }
+            .eyemask-container {
+                transform: scale(0.8);
             }
         }
     </style>
 </head>
-<body class="antialiased selection:bg-blue-900">
+<body class="antialiased selection:bg-blue-600">
     <div class="grainy-overlay"></div>
+    
+    <!-- Background Watermark Text -->
+    <div class="bg-manifesto-text">
+        Here’s to the crazy ones. The misfits. The rebels. The troublemakers. The round pegs in the square holes. The ones who see things differently. They’re not fond of rules. And they have no respect for the status quo. You can quote them, disagree with them, glorify or vilify them. About the only thing you can’t do is ignore them. Because they change things. They push the human race forward. And while some may see them as the crazy ones, we see genius. Because the people who are crazy enough to think they can change the world, are the ones who do.
+    </div>
 
-    <!-- Minimal Title Section -->
-    <header class="h-screen flex items-center justify-center text-center px-6">
-        <h1 class="text-6xl md:text-9xl font-black uppercase italic tracking-tighter leading-none">
-            The <br>Manifesto <br>of the <br>Outlier
+    <!-- Auto Scroll Toggle -->
+    <button id="autoScrollToggle">
+        <span id="toggleStatus">Auto-Scroll Off</span>
+        <div class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_10px_#ef4444]" id="statusDot"></div>
+    </button>
+
+    <!-- Header Section with integrated Eyemask SVG -->
+    <header class="h-screen flex flex-col items-center justify-center text-center px-6 relative z-10">
+        <div class="eyemask-container mb-12">
+            <!-- Provided Eyemask SVG -->
+            <svg width="100%" height="auto" viewBox="0 0 1148 718" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-2xl">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M837.019 587.858C853.512 592.613 870.046 596.982 886.839 600.752C918.495 607.906 950.623 613.089 982.964 616.088C1066.41 623.755 1152.3 616.216 1230.56 584.817C1240.46 580.833 1251.85 585.716 1255.79 595.612C1259.78 605.507 1254.89 616.859 1245 620.843C1161.38 654.427 1069.71 662.908 980.48 654.855C946.339 651.771 912.369 646.288 878.914 638.791C858.009 634.079 837.576 628.553 817.057 622.47C814.144 621.614 811.274 620.757 808.319 619.943C787.072 640.804 763.469 658.41 738.238 672.675C686.962 701.718 629.09 717.011 570.746 717.954C512.445 718.896 453.758 705.488 400.898 677.216C286.224 615.831 199.265 484.793 204.363 278.62C158.87 264.955 124.858 235.097 96.8424 196.63C77.0947 169.557 61.0736 139.186 47.4088 108.643C28.9461 67.4341 13.9532 24.2119 0.845141 -18.9677C-2.28198 -29.2057 3.54386 -40.0434 13.7818 -43.1706C24.0198 -46.2548 34.8575 -40.4718 37.9418 -30.2339C50.4929 11.018 64.7148 52.3555 82.3207 91.7654C95.0004 120.166 109.822 148.567 128.156 173.755C142.207 193.074 160.327 213.379 181.017 228.929C202.692 245.25 215.329 249.962 240.046 253.089C285.538 258.786 337.243 247.691 396.186 235.012C525.296 207.296 687.99 172.341 906.329 281.832C910.741 283.846 913.569 288.729 913.526 293.527C924.535 418.525 892.621 517.177 837.019 587.858Z" fill="white"/>
+            </svg>
+        </div>
+        <h1 class="text-5xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">
+            The Manifesto <br>of the Outlier
         </h1>
     </header>
 
-    <main class="stack-container pb-[20vh]">
+    <main class="stack-container">
         
         <!-- I -->
-        <section class="manifesto-card border-white/10" id="section-1">
+        <section class="manifesto-card" id="section-1">
             <div class="max-w-4xl mx-auto w-full">
                 <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">I.</span>
                 <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Intent of the Object</h2>
-                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
-                    We do not build tools; we build extensions of the human spirit. Every line of code and every pixel is a choice. We believe that a product should not just function, but possess a <span class="text-white font-bold">"bicycle-like" efficiency</span> for the mind.
+                <p class="text-xl md:text-4xl leading-relaxed text-gray-300 reveal-text">
+                    We do not build tools; we build extensions of the human spirit. Every line of code and every pixel is a choice. We believe that a product should not just function, but possess a <span class="text-white font-bold italic underline decoration-blue-600 decoration-8 underline-offset-8">"bicycle-like" efficiency</span> for the mind.
                 </p>
             </div>
         </section>
 
         <!-- II -->
-        <section class="manifesto-card border-white/10" id="section-2">
+        <section class="manifesto-card" id="section-2">
             <div class="max-w-4xl mx-auto w-full">
                 <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">II.</span>
                 <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Cultivation of Taste</h2>
-                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
+                <p class="text-xl md:text-4xl leading-relaxed text-gray-300 reveal-text">
                     We refuse the mediocre. We commit to exposing ourselves to the best things humans have done—across art, science, and history—and bringing that excellence into our craft. 
-                    <span class="block mt-6 text-blue-400">Taste is the only non-fungible resource.</span>
+                    <span class="block mt-10 text-blue-500 font-black">Taste is the only non-fungible resource.</span>
                 </p>
             </div>
         </section>
 
         <!-- III -->
-        <section class="manifesto-card border-white/10" id="section-3">
+        <section class="manifesto-card" id="section-3">
             <div class="max-w-4xl mx-auto w-full">
                 <span class="text-6xl md:text-8xl font-black italic pirate-red mb-8 block">III.</span>
                 <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Courage to be a Pirate</h2>
-                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
-                    It is better to be a pirate than to join the navy. We value the "garage" spirit of agility and rebellion over the stagnation of the system. We understand that <span class="italic">"good artists copy, but great artists steal."</span>
+                <p class="text-xl md:text-4xl leading-relaxed text-gray-300 reveal-text">
+                    It is better to be a pirate than to join the navy. We value the "garage" spirit of agility and rebellion over the stagnation of the system. We understand that <span class="italic text-white">"good artists copy, but great artists steal."</span>
                 </p>
             </div>
         </section>
 
         <!-- IV -->
-        <section class="manifesto-card border-white/10" id="section-4">
+        <section class="manifesto-card" id="section-4">
             <div class="max-w-4xl mx-auto w-full">
                 <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">IV.</span>
                 <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Science of Poking Life</h2>
-                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
-                    Everything around us was made up by people no smarter than we are. We do not just inhabit the world; <span class="text-white font-bold uppercase tracking-widest">we poke it.</span> We push against the boundaries of the "possible" until they give way to our vision.
+                <p class="text-xl md:text-4xl leading-relaxed text-gray-300 reveal-text">
+                    Everything around us was made up by people no smarter than we are. We do not just inhabit the world; <span class="text-white font-bold uppercase tracking-widest border-b-4 border-blue-600">we poke it.</span> We push against the boundaries of the "possible" until they give way to our vision.
                 </p>
             </div>
         </section>
 
         <!-- V -->
-        <section class="manifesto-card border-white/10" id="section-5">
+        <section class="manifesto-card" id="section-5">
             <div class="max-w-4xl mx-auto w-full">
                 <span class="text-6xl md:text-8xl font-black italic silicon-blue mb-8 block">V.</span>
                 <h2 class="text-4xl md:text-6xl font-black uppercase mb-8 reveal-text">The Discipline of the Visionary</h2>
-                <p class="text-xl md:text-3xl leading-relaxed text-gray-300 reveal-text">
+                <p class="text-xl md:text-4xl leading-relaxed text-gray-300 reveal-text">
                     We embrace mistakes as the price of ambition and the fuel for enrichment. We harbor no regrets for things left undone, for we act with relentless intent.
                 </p>
             </div>
         </section>
 
         <!-- Final Signature -->
-        <section class="manifesto-card border-white/10 h-screen" id="final">
-            <div class="text-center">
-                <h3 class="text-6xl md:text-9xl font-black italic uppercase tracking-tighter reveal-text">
+        <section class="manifesto-card h-screen" id="final">
+            <div class="text-center w-full">
+                <h3 class="text-7xl md:text-9xl font-black italic uppercase tracking-tighter mb-20 reveal-text">
                     Stay hungry.<br>
                     <span class="silicon-blue">Stay foolish.</span>
                 </h3>
-                <p class="mt-20 text-xs font-bold uppercase tracking-[0.5em] opacity-30">The Product Space • Coimbatore</p>
+                
+                <div class="flex flex-col items-center gap-4 opacity-50">
+                    <!-- Minimal Product Space Logo Path -->
+                    <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10L10 80H90L50 10Z" stroke="white" stroke-width="4"/>
+                        <circle cx="50" cy="55" r="15" stroke="white" stroke-width="4"/>
+                        <rect x="40" y="45" width="20" height="20" stroke="white" stroke-width="4"/>
+                    </svg>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.8em]">The Product Space • Coimbatore</p>
+                </div>
             </div>
         </section>
 
     </main>
 
     <script>
-        // Reveal text on scroll
+        // Reveal text on scroll with Intersection Observer
         const observerOptions = {
-            threshold: 0.2
+            threshold: 0.3
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -159,7 +237,7 @@
                     texts.forEach((text, index) => {
                         setTimeout(() => {
                             text.classList.add('visible');
-                        }, index * 200);
+                        }, index * 250);
                     });
                 }
             });
@@ -169,17 +247,54 @@
             observer.observe(card);
         });
 
-        // Add a slight parallax/scale effect on scroll for stacking
+        // Auto Scroll Logic for TV Display
+        let isAutoScrolling = false;
+        let scrollSpeed = 0.8; // Smooth, slow crawl for reading
+        const toggleBtn = document.getElementById('autoScrollToggle');
+        const statusText = document.getElementById('toggleStatus');
+        const statusDot = document.getElementById('statusDot');
+
+        function autoScroll() {
+            if (!isAutoScrolling) return;
+            
+            window.scrollBy(0, scrollSpeed);
+            
+            // Loop back to top if at end
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
+                isAutoScrolling = false;
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    // Restart after scrolling to top
+                    setTimeout(() => {
+                        if (toggleBtn.classList.contains('active')) {
+                            isAutoScrolling = true;
+                            autoScroll();
+                        }
+                    }, 3000);
+                }, 5000);
+            }
+            
+            if (isAutoScrolling) {
+                requestAnimationFrame(autoScroll);
+            }
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            isAutoScrolling = !isAutoScrolling;
+            toggleBtn.classList.toggle('active');
+            statusText.innerText = isAutoScrolling ? 'Auto-Scroll On' : 'Auto-Scroll Off';
+            statusDot.classList.toggle('bg-red-500', !isAutoScrolling);
+            statusDot.classList.toggle('bg-green-400', isAutoScrolling);
+            statusDot.classList.toggle('shadow-[0_0_10px_#4ade80]', isAutoScrolling);
+            
+            if (isAutoScrolling) autoScroll();
+        });
+
+        // Slight parallax for background text
         window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.manifesto-card');
-            cards.forEach((card, index) => {
-                const rect = card.getBoundingClientRect();
-                if (rect.top <= 0 && rect.bottom > 0) {
-                    // Card is currently active/sticky
-                    const progress = Math.abs(rect.top) / rect.height;
-                    // Optional: add a slight darkening or scaling to the "underneath" cards
-                }
-            });
+            const bgText = document.querySelector('.bg-manifesto-text');
+            const scrolled = window.pageYOffset;
+            bgText.style.transform = `translateY(${scrolled * 0.1}px)`;
         });
     </script>
 </body>
